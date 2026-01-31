@@ -1,0 +1,13 @@
+[package]
+name = "arbitrage-intel-mcp"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.100"
+chrono = { version = "0.4.43", features = ["serde"] }
+clickhouse = { version = "0.14.2", features = ["uuid", "chrono"] }
+dotenvy = "0.15.7"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+tokio = { version = "1.49.0", features = ["full"] }

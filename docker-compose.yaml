@@ -1,0 +1,22 @@
+services:
+    clickhouse:
+        image: clickhouse/clickhouse-server:latest # В 2026 используем LTS версии
+        container_name: arbitrage_clickhouse
+        ports:
+            - "8123:8123" # HTTP interface (for MCP and UI)
+            - "9000:9000" # Native TCP (for Go-driver)
+        volumes:
+            - ch_data:/var/lib/clickhouse
+            - ./migrations/000001_init.sql:/docker-entrypoint-initdb.d/000001_init.sql
+        environment:
+            - CLICKHOUSE_DB=arbitrage_db
+            - CLICKHOUSE_USER=default
+            - CLICKHOUSE_PASSWORD=clickhouse_pass
+        healthcheck:
+            test: ["CMD", "wget", "--spider", "-q", "localhost:8123/ping"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+volumes:
+    ch_data:
