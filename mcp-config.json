@@ -1,0 +1,18 @@
+{
+    "mcpServers": {
+        "arbitrage-analyzer": {
+            "command": "cargo",
+            "args": [
+                "run",
+                "--manifest-path",
+                "/Users/alekstut/Project/arbitrage-intel-mcp/Cargo.toml",
+                "--release"
+            ],
+            "env": {
+                "CLICKHOUSE_HOST": "localhost",
+                "CLICKHOUSE_PORT": "9000",
+                "CLICKHOUSE_DB": "arbitrage_db"
+            }
+        }
+    }
+}

@@ -2,8 +2,9 @@ use crate::domain::models::ArbitrageOpportunity;
 use anyhow::{Context, Result};
 use clickhouse::Client;
 
+#[derive(Clone)]
 pub struct ClickHouseRepository {
-    client: Client,
+    pub client: clickhouse::Client,
 }
 
 impl ClickHouseRepository {
@@ -37,6 +38,7 @@ impl ClickHouseRepository {
         Ok(())
     }
 
+    #[allow(dead_code)]
     pub async fn insert_opportunity(&self, opp: &ArbitrageOpportunity) -> Result<()> {
         let mut insert = self
             .client
@@ -64,5 +66,19 @@ impl ClickHouseRepository {
             result.push(row);
         }
         Ok(result)
+    }
+
+    pub async fn insert_batch(&self, opportunities: Vec<ArbitrageOpportunity>) -> Result<()> {
+        let mut insert = self
+            .client
+            .insert::<ArbitrageOpportunity>("arbitrage_opportunities")
+            .await?;
+
+        for opp in opportunities {
+            insert.write(&opp).await?;
+        }
+
+        insert.end().await?;
+        Ok(())
     }
 }

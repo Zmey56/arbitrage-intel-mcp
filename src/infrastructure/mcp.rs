@@ -18,7 +18,7 @@ impl McpServer {
         while let Some(line) = lines.next_line().await? {
             let request: Value = serde_json::from_str(&line)?;
 
-            // Обработка JSON-RPC методов MCP
+            // Processing of JSON-RPC MCP methods
             if request["method"] == "listTools" {
                 self.send_response(request["id"].clone(), self.list_tools())
                     .await?;
