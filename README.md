@@ -103,7 +103,3 @@ This project is licensed under the MIT License.
 
 *Developed for educational purposes as a demonstration of high-load engineering and AI integration.*
 
-```
-**Хотите, чтобы я написал Makefile или SQL-миграцию для инициализации таблиц ClickHouse под этот проект?**
-
-```
